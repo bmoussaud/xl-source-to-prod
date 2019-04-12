@@ -4,7 +4,7 @@ spec:
 - name: Containers
   type: core.Directory
   children:
-    - name: xl-backend
+    - name: xl-demo-backend
       type: udm.Application
       children:
       - name: !value appversion
