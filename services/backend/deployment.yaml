@@ -1,0 +1,8 @@
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+  package: !format Applications/Containers/xl-demo-backend/%appversion%
+  environment: Environments/Containers/xl-demo-staging
+
+
+
