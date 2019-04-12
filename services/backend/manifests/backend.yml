@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 'backend-${ canary ? "canary" : "primary" }'
+  name: 'backend-{{ canary_type }}'
   labels:
     stack: backend
     tier: '{{env}}'

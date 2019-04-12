@@ -111,12 +111,14 @@ spec:
       env: staging
       is_canary: false
       replicas: 1
+      canary_type: primary
   - name: production.conf
     type: udm.Dictionary
     entries:
       env: production
       is_canary: true
       replicas: 5
+      canary_type: canary
   - name: xl-demo-staging
     type: udm.Environment
     members:
