@@ -30,5 +30,11 @@ pipeline {
             }
         }
 
+        stage("Apply xebialabs.yaml") {
+            steps {
+                sh "./xlw apply -v -f services/backend/xebialabs.yaml --value appversion=$BUILD_NUMBER"
+            }
+        }
+
     }
 }
