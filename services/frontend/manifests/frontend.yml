@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  BACKEND_ENDPOINT: 'http://backend.{{env}}'
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: 'frontend-{{ canary_type }}'
+  labels:
+    stack: frontend
+    tier: '{{env}}'
+    canary: '{{is_canary}}'
+spec:
+  replicas: {{replicas}}
+  selector:
+    matchLabels:
+      stack: frontend
+      tier: '{{env}}'
+      canary: '{{is_canary}}'
+  template:
+    metadata:
+      labels:
+        stack: frontend
+        tier: '{{env}}'
+        canary: '{{is_canary}}'
+    spec:
+      containers:
+      - name: primary
+        image: localhost:5000/xl-demo-backend:1.0.12
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+        envFrom:
+        - configMapRef:
+            name: frontend-config
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+spec:
+  selector:
+    stack: frontend
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
