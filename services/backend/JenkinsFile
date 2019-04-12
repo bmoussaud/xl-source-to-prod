@@ -1,0 +1,34 @@
+pipeline {
+    environment {
+        registry = "localhost:5000/xl-demo-backend"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
+    agent any
+    stages {
+        stage('Cloning Git') {
+            steps {
+                git 'https://github.com/bmoussaud/xl-source-to-prod.git'
+            }
+        }
+        stage('Building image') {
+            steps {
+                script {
+                    docker.withServer('tcp://192.168.130.134:2376', 'minikube') {
+                        dockerImage = docker.build(registry + ":$BUILD_NUMBER", "services/backend")
+                    }
+                }
+            }
+        }
+        stage('Deploy Image') {
+            steps {
+                script {
+                    docker.withServer('tcp://192.168.130.134:2376', 'minikube') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+    }
+}
