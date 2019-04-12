@@ -10,7 +10,7 @@ spec:
       - name: !value appversion
         type: udm.DeploymentPackage
         deployables:
-        - name: backend.yaml
+        - name: frontend.yaml
           type: k8s.ResourcesFile
           file: !file manifests/frontend.yml
 ---
