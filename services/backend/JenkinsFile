@@ -1,8 +1,9 @@
 pipeline {
     environment {
         registry = "localhost:5000/xl-demo-backend"
-        registryCredential = 'dockerhub'
+        dockerCredentials = 'minikube'
         dockerImage = ''
+        appversion = "1.0.$BUILD_NUMBER"
     }
     agent any
     stages {
@@ -14,8 +15,8 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
-                    docker.withServer('tcp://192.168.130.134:2376', 'minikube') {
-                        dockerImage = docker.build(registry + ":$BUILD_NUMBER", "services/backend")
+                    docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
+                        dockerImage = docker.build(registry + ":" + appversion, "services/backend")
                     }
                 }
             }
@@ -23,7 +24,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
-                    docker.withServer('tcp://192.168.130.134:2376', 'minikube') {
+                    docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
                         dockerImage.push()
                     }
                 }
@@ -32,7 +33,7 @@ pipeline {
 
         stage("Apply xebialabs.yaml") {
             steps {
-                sh "./xlw apply -v -f services/backend/xebialabs.yaml --value appversion=$BUILD_NUMBER"
+                sh "./xlw apply -v -f services/backend/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
             }
         }
 

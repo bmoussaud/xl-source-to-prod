@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: primary
-        image: localhost:5000/backend:6
+        image: localhost:5000/xl-demo-backend:1.0.12
         ports:
         - containerPort: 8000
         readinessProbe:
