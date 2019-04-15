@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: frontend-config
 data:
-  BACKEND_ENDPOINT: 'http://backend.{{env}}'
+  BACKEND_ENDPOINT: 'http://{{BACKEND_ENDPOINT}}'
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
