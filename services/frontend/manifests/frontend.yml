@@ -32,10 +32,10 @@ spec:
         image: localhost:5000/xl-demo-frontend:1.0.5
         ports:
         - containerPort: 8000
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8000
+        #readinessProbe:
+        #  httpGet:
+        #    path: /
+        #    port: 8000
         envFrom:
         - configMapRef:
             name: frontend-config
