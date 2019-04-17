@@ -32,7 +32,7 @@ pipeline {
 
         stage("Apply xebialabs.yaml") {
             steps {
-                sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTag}#' ./services/frontend/manifests/*.yaml"
+                sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTag}#' ./services/frontend/manifests/*.yml"
                 sh "./xlw apply -v -f services/frontend/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
             }
         }
