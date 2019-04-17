@@ -19,7 +19,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg := fmt.Sprintf("Host: %s\nSuccessful requests: %d", host, count)
+	msg := fmt.Sprintf("Host: %s\nSuccessful Requests: %d", host, count)
 	count += 1
 
 	io.WriteString(w, msg)
