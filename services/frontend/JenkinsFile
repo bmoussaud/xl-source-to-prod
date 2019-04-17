@@ -4,6 +4,7 @@ pipeline {
         dockerCredentials = 'minikube'
         dockerImage = ''
         appversion = "1.0.$BUILD_NUMBER"
+        imageTag = registry + ":" + appversion
     }
     agent any
     stages {
@@ -16,7 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
-                        dockerImage = docker.build(registry + ":" + appversion, "services/frontend")
+                        dockerImage = docker.build(imageTag, "services/frontend")
                     }
                 }
             }
@@ -33,6 +34,7 @@ pipeline {
 
         stage("Apply xebialabs.yaml") {
             steps {
+                sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTag}#' ./services/frontend/manifests/*.yaml"
                 sh "./xlw apply -v -f services/frontend/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
             }
         }

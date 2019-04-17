@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: primary
-        image: localhost:5000/xl-demo-frontend:1.0.11
+        image: xl-demo-frontend:latest
         ports:
         - containerPort: 8000
         #readinessProbe:
