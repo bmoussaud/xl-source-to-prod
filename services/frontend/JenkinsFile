@@ -1,10 +1,8 @@
 pipeline {
     environment {
-        registry = "localhost:5000/xl-demo-frontend"
+        imageTag = "localhost:5000/xl-demo-frontend:1.0.$BUILD_NUMBER"
         dockerCredentials = 'minikube'
         dockerImage = ''
-        appversion = "1.0.$BUILD_NUMBER"
-        imageTag = registry + ':' + appversion
     }
     agent any
     stages {
