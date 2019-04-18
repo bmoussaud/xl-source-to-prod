@@ -118,7 +118,7 @@ spec:
     entries:
       env: production
       is_canary: true
-      replicas: 5
+      replicas: 1
       canary_type: canary
       BACKEND_ENDPOINT: backend
   - name: xl-demo-staging
