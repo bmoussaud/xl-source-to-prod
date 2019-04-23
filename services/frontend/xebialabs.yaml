@@ -13,6 +13,9 @@ spec:
         - name: frontend.yaml
           type: k8s.ResourcesFile
           file: !file manifests/frontend.yml
+        - name: ingress.yaml
+          type: k8s.ResourcesFile
+          file: !file manifests/ingress.json
 ---
 apiVersion: xl-deploy/v1
 kind: Infrastructure
