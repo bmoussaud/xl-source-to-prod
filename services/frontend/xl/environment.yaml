@@ -1,0 +1,35 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: Environments/Containers
+  children:
+  - name: staging.conf
+    type: udm.Dictionary
+    entries:
+      env: staging
+      is_canary: false
+      replicas: 1
+      canary_type: primary
+      BACKEND_ENDPOINT: backend
+  - name: production.conf
+    type: udm.Dictionary
+    entries:
+      env: production
+      is_canary: true
+      replicas: 1
+      canary_type: canary
+      BACKEND_ENDPOINT: backend
+  - name: xl-demo-staging
+    type: udm.Environment
+    members:
+    - ~Infrastructure/Containers/xl-demo-kube/xl-demo-staging
+    dictionaries:
+    - ~Environments/Containers/staging.conf
+  - name: xl-demo-production
+    type: udm.Environment
+    members:
+    - ~Infrastructure/Containers/xl-demo-kube/xl-demo-production
+    dictionaries:
+    - ~Environments/Containers/production.conf
+
+
