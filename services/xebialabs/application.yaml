@@ -15,7 +15,7 @@ spec:
           file: !file frontend/manifests/frontend.yml
         - name: backend.yaml
           type: k8s.ResourcesFile
-          file: !file frontend/manifests/backend.yml
+          file: !file backend/manifests/backend.yml
         - name: ingress.yaml
           type: k8s.ResourcesFile
           file: !file frontend/manifests/ingress.json
