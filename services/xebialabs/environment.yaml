@@ -18,7 +18,7 @@ spec:
       env: production
       is_canary: false
       replicas: 3
-      canary_type: canary
+      canary_type: primary
       BACKEND_ENDPOINT: backend
       front.url: http://production.front.xebialabs.demo
   - name: xl-demo-staging
