@@ -1,8 +1,6 @@
 apiVersion: xl-deploy/v1
 kind: Environments
 spec:
-- directory: Environments/Containers
-  children:
   - name: staging.conf
     type: udm.Dictionary
     entries:
@@ -22,14 +20,14 @@ spec:
   - name: xl-demo-staging
     type: udm.Environment
     members:
-    - ~Infrastructure/Containers/xl-demo-kube/xl-demo-staging
+    - ~Infrastructure/xl-demo-kube/xl-demo-staging
     dictionaries:
-    - ~Environments/Containers/staging.conf
+    - ~Environments/staging.conf
   - name: xl-demo-production
     type: udm.Environment
     members:
-    - ~Infrastructure/Containers/xl-demo-kube/xl-demo-production
+    - ~Infrastructure/xl-demo-kube/xl-demo-production
     dictionaries:
-    - ~Environments/Containers/production.conf
+    - ~Environments/production.conf
 
 

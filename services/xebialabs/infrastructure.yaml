@@ -1,8 +1,6 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
-- directory: Infrastructure/Containers
-  children:
   - name: xl-demo-kube
     type: k8s.Master
     apiServerURL: https://192.168.130.134:8443
