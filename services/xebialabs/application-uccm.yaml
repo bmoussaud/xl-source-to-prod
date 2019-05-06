@@ -1,0 +1,40 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Containers
+  type: core.Directory
+  children:
+    - name: xl-demo-uccm-app
+      type: udm.Application
+      children:
+      - name: !value appversion
+        type: udm.DeploymentPackage
+        deployables:
+        - name: back
+          type: uccm.ContainerSpec
+          image: !format localhost:5000/xl-demo-backend:%appversion%
+          replicas: "1"
+          profile: default
+          ports:
+          - name: web
+            type: uccm.ContainerPortSpec
+            containerPort: "8000"
+            exposeAsService: True
+            servicePort: "80"
+        - name: front
+          type: uccm.ContainerSpec
+          image: !format localhost:5000/xl-demo-frontend:%appversion%
+          env:
+            BACKEND_ENDPOINT: http://back-web-service
+          ports:
+          - name: web
+            type: uccm.ContainerPortSpec
+            containerPort: "8000"
+            exposeAsService: True
+            servicePort: "80"
+            exposeAsIngress: True
+        - name: test application availability
+          type: smoketest.HttpRequestTest
+          url: '{{front.url}}'
+          expectedResponseText: Hello, world!
+

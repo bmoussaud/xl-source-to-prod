@@ -1,0 +1,27 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Containers
+  type: core.Directory
+  children:
+    - name: xl-demo-app
+      type: udm.Application
+      children:
+      - name: !value appversion
+        type: udm.DeploymentPackage
+        deployables:
+        - name: frontend.yaml
+          type: k8s.ResourcesFile
+          file: !file frontend/manifests/frontend.yml
+        - name: backend.yaml
+          type: k8s.ResourcesFile
+          file: !file frontend/manifests/backend.yml
+        - name: ingress.yaml
+          type: k8s.ResourcesFile
+          file: !file frontend/manifests/ingress.json
+        - name: test application availability
+          type: smoketest.HttpRequestTest
+          url: '{{front.url}}'
+          expectedResponseText: Hello, world!
+
+

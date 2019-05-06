@@ -2,7 +2,8 @@ pipeline {
     environment {
         imageTag = "localhost:5000/xl-demo-frontend:1.0.$BUILD_NUMBER"
         dockerCredentials = 'minikube'
-        dockerImage = ''
+        dockerImageFront = ''
+        dockerImageBack = ''
     }
     agent any
     stages {
@@ -11,20 +12,30 @@ pipeline {
                 git 'https://github.com/bmoussaud/xl-source-to-prod.git'
             }
         }
-        stage('Building image') {
+        stage('Building backend image') {
             steps {
                 script {
                     docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
-                        dockerImage = docker.build(imageTag, "services/frontend")
+                        dockerImageBack = docker.build(imageTag, "services/backend")
                     }
                 }
             }
         }
-        stage('Deploy Image') {
+        stage('Building frontend image') {
             steps {
                 script {
                     docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
-                        dockerImage.push()
+                        dockerImageFront = docker.build(imageTag, "services/frontend")
+                    }
+                }
+            }
+        }
+        stage('Deploy Images to Registry') {
+            steps {
+                script {
+                    docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
+                        dockerImageFront.push()
+                        dockerImageBack.push()
                     }
                 }
             }
@@ -33,7 +44,8 @@ pipeline {
         stage("Apply xebialabs.yaml") {
             steps {
                 sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTag}#' ./services/frontend/manifests/*.yml"
-                sh "./xlw apply -v -f services/frontend/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
+                sh "sed -i.bak 's#xl-demo-backend:latest#${imageTag}#' ./services/backend/manifests/*.yml"
+                sh "./xlw apply -v -f services/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
             }
         }
 
