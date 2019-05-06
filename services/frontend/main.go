@@ -31,6 +31,13 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	host, err := os.Hostname()
+    if err != nil {
+        http.Error(w, fmt.Sprintf("Error retrieving hostname: %v", err), 500)
+        return
+    }
+    msg2 := fmt.Sprintf("%s", host)
+
 	t, terr := template.ParseFiles("/content/index.html")
 
 	if terr != nil {
@@ -41,6 +48,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	config := map[string]string{
 		"Message": string(body),
 		"Feature": os.Getenv("FEATURE"),
+		"FrontendHost": string(msg2)
 	}
 
 	t.Execute(w, config)
