@@ -46,7 +46,7 @@ pipeline {
             steps {
                 sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTagFront}#' ./services/frontend/manifests/*.yml"
                 sh "sed -i.bak 's#xl-demo-backend:latest#${imageTagBack}#' ./services/backend/manifests/*.yml"
-                sh "./xlw apply -v -f services/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
+                sh "./xlw apply --xl-deploy-url http://localhost:4525 -v -f services/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
             }
         }
 
