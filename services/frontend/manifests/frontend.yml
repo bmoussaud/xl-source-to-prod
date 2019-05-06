@@ -4,6 +4,7 @@ metadata:
   name: frontend-config
 data:
   BACKEND_ENDPOINT: 'http://{{BACKEND_ENDPOINT}}'
+  FEATURE: {{env}}-xl-demo-frontend:latest
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
