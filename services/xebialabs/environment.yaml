@@ -23,12 +23,14 @@ spec:
     type: udm.Environment
     members:
     - ~Infrastructure/xl-demo/xl-demo-kube/xl-demo-staging
+    - ~Infrastructure/xl-demo/localhost/test-runner-staging
     dictionaries:
     - ./staging.conf
   - name: xl-demo-production
     type: udm.Environment
     members:
     - ~Infrastructure/xl-demo/xl-demo-kube/xl-demo-production
+    - ~Infrastructure/xl-demo/localhost/test-runner-production
     dictionaries:
     - ./production.conf
 

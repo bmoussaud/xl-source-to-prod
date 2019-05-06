@@ -83,3 +83,14 @@ spec:
         type: k8s.Namespace
       - name: xl-demo-production
         type: k8s.Namespace
+  - name: localhost
+    type: overthere.LocalHost
+    os: UNIX
+    children:
+      - name: test-runner-staging
+        type: smoketest.HttpRequestTest
+      - name: test-runner-production
+        type: smoketest.HttpRequestTest
+
+
+
