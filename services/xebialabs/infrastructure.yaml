@@ -1,5 +1,7 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
+metadata:
+ Infrastructure-home: Infrastructure/xl-demo
 spec:
   - name: xl-demo-kube
     type: k8s.Master
