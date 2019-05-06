@@ -17,7 +17,7 @@ spec:
     entries:
       env: production
       is_canary: false
-      replicas: 5
+      replicas: 3
       canary_type: canary
       BACKEND_ENDPOINT: backend
       front.url: http://production.front.xebialabs.demo
