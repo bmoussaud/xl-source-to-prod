@@ -48,7 +48,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	config := map[string]string{
 		"Message": string(body),
 		"Feature": os.Getenv("FEATURE"),
-		"FrontendHost": msg2
+		"FrontendHost": string(msg2),
 	}
 
 	t.Execute(w, config)
