@@ -88,9 +88,9 @@ spec:
     os: UNIX
     children:
       - name: test-runner-staging
-        type: smoketest.HttpRequestTest
+        type: smoketest.Runner
       - name: test-runner-production
-        type: smoketest.HttpRequestTest
+        type: smoketest.Runner
 
 
 
