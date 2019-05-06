@@ -1,5 +1,7 @@
 pipeline {
     environment {
+        imageTagFront = "localhost:5000/xl-demo-frontend:1.0.$BUILD_NUMBER"
+        imageTagBack = "localhost:5000/xl-demo-backend:1.0.$BUILD_NUMBER"
         dockerCredentials = 'minikube'
         dockerImageFront = ''
         dockerImageBack = ''
@@ -15,7 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
-                        dockerImageBack = docker.build("localhost:5000/xl-demo-backend:1.0.$BUILD_NUMBER", "services/backend")
+                        dockerImageBack = docker.build(imageTagBack, "services/backend")
                     }
                 }
             }
@@ -24,7 +26,7 @@ pipeline {
             steps {
                 script {
                     docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
-                        dockerImageFront = docker.build("localhost:5000/xl-demo-frontend:1.0.$BUILD_NUMBER", "services/frontend")
+                        dockerImageFront = docker.build(imageTagFront, "services/frontend")
                     }
                 }
             }
@@ -42,8 +44,8 @@ pipeline {
 
         stage("Apply xebialabs.yaml") {
             steps {
-                sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTag}#' ./services/frontend/manifests/*.yml"
-                sh "sed -i.bak 's#xl-demo-backend:latest#${imageTag}#' ./services/backend/manifests/*.yml"
+                sh "sed -i.bak 's#xl-demo-frontend:latest#${imageTagFront}#' ./services/frontend/manifests/*.yml"
+                sh "sed -i.bak 's#xl-demo-backend:latest#${imageTagBack}#' ./services/backend/manifests/*.yml"
                 sh "./xlw apply -v -f services/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
             }
         }
