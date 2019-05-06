@@ -11,14 +11,16 @@ spec:
       replicas: 1
       canary_type: primary
       BACKEND_ENDPOINT: backend
+      front.url: http://staging.front.xebialabs.demo
   - name: production.conf
     type: udm.Dictionary
     entries:
       env: production
-      is_canary: true
+      is_canary: false
       replicas: 5
       canary_type: canary
       BACKEND_ENDPOINT: backend
+      front.url: http://production.front.xebialabs.demo
   - name: xl-demo-staging
     type: udm.Environment
     members:
