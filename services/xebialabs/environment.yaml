@@ -1,10 +1,6 @@
 apiVersion: xl-deploy/v1
 kind: Environments
 metadata:
-  #ProjectName: xl-demo-app
-  #Description: sample application for demo from source to production
-  #Author: Benoit Moussaud
-  #Version: 1.0.0
   Environments-home: Environments/xl-demo
 spec:
   - name: staging.conf
