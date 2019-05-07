@@ -6,6 +6,8 @@ spec:
     children:
     - name: !value appversion
       type: udm.DeploymentPackage
+      ochestrators:
+      -
       deployables:
       - name: back
         type: uccm.ContainerSpec
