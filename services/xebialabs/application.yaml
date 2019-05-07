@@ -18,7 +18,7 @@ spec:
         file: !file ../frontend/manifests/ingress.json
       - name: test application availability
         type: smoketest.HttpRequestTest
-        url: '{{front.url}}'
+        url: 'http://{{env}}.front.xebialabs.demo/'
         expectedResponseText: Hello, world!
 
 

@@ -140,7 +140,7 @@ spec:
     scriptUsername: admin
     scriptUserPassword: admin
     riskProfile: Default risk profile
- - template: Source-To-Prod-UCCM
+  - template: Source-To-Prod-UCCM
     scheduledStartDate: 2019-04-12T09:00:00+02:00
     phases:
     - phase: Deploy to Staging

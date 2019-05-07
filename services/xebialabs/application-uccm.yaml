@@ -6,8 +6,8 @@ spec:
     children:
     - name: !value appversion
       type: udm.DeploymentPackage
-      ochestrators:
-      -
+      ochestrator:
+      - sequential-by-deployed
       deployables:
       - name: back
         type: uccm.ContainerSpec
@@ -35,6 +35,6 @@ spec:
           exposeAsIngress: True
       - name: test application availability
         type: smoketest.HttpRequestTest
-        url: '{{front.url}}'
+        url: http://xl-demo-{{env}}.xl-demo-uccm-app.xebialabs.demo/
         expectedResponseText: Hello, world!
 
