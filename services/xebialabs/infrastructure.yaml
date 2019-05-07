@@ -8,7 +8,7 @@ spec:
     apiServerURL: https://192.168.130.134:8443
     skipTLS: true
     debug: true
-    kubectlHost: ~Infrastructure/xl-demo/localhost
+    kubectlHost: ~Infrastructure/localhost
     caCert: |-
       -----BEGIN CERTIFICATE-----
       MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwptaW5p
