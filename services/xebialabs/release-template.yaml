@@ -184,7 +184,7 @@ spec:
         server: myXLDServer
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
-        propertyValue: '{''is_canary'':''true'', ''env'':''production'',''replicas'':''1'',
+        propertyValue: '{''uccm.Container.canary'':''true'', ''env'':''production'',''replicas'':''1'',
           ''canary_type'':''canary'',''BACKEND_ENDPOINT'':''backend''}'
       - name: Deploy ${application} ${version} --> Production
         type: xldeploy.Deploy
@@ -209,7 +209,7 @@ spec:
         server: myXLDServer
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
-        propertyValue: '{''is_canary'':''false'', ''env'':''production'',''replicas'':''5'',
+        propertyValue: '{''uccm.Container.canary'':''false'', ''env'':''production'',''replicas'':''5'',
           ''canary_type'':''primary'',''BACKEND_ENDPOINT'':''backend''}'
       - name: Promote
         type: xlrelease.SequentialGroup
