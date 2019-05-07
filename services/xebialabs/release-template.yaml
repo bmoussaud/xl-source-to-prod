@@ -39,7 +39,7 @@ spec:
         owner: admin
       - name: Check the ${application} service in staging
         type: xlrelease.Task
-        description: run `minikube service frontend -n xl-demo-staging` or via its ingress http://staging.front.xebialabs.demo/
+        description: Test http://staging.front.xebialabs.demo/
         owner: admin
       color: '#0099CC'
     - phase: Deploy Canary to Production
@@ -66,7 +66,7 @@ spec:
         owner: admin
       - name: Check the canary ${application} service in production
         type: xlrelease.Task
-        description: run `minikube service frontend -n xl-demo-production` or via its ingress http://production.front.xebialabs.demo/
+        description: Test http://production.front.xebialabs.demo/
         owner: admin
         failureHandler: |-
           releaseVariables['rollback'] = True
@@ -76,7 +76,7 @@ spec:
       color: '#FD8D10'
     - phase: Promote Canary to Production
       tasks:
-      - name: Set Canary Mode for production environment
+      - name: Set Canary Mode Off for production environment
         type: xld.UpdateCIProperty
         server: myXLDServer
         ciID: Environments/${directory}/production.conf
@@ -95,7 +95,7 @@ spec:
           owner: admin
         - name: Check the ${application} service in production
           type: xlrelease.Task
-          description: run `minikube service frontend -n xl-demo-production`  or  via its ingress http://production.front.xebialabs.demo/
+          description: Test
           owner: admin
       color: '#D94C3D'
     - phase: Rollback
@@ -167,7 +167,7 @@ spec:
         owner: admin
       - name: Check the ${application} service in staging
         type: xlrelease.Task
-        description: run `minikube service frontend -n xl-demo-staging` or via its ingress http://staging.front.xebialabs.demo/
+        description: Test http://xl-demo-staging.xl-demo-uccm-app.xebialabs.demo/
         owner: admin
       color: '#0099CC'
     - phase: Deploy Canary to Production
@@ -194,7 +194,7 @@ spec:
         owner: admin
       - name: Check the canary ${application} service in production
         type: xlrelease.Task
-        description: run `minikube service frontend -n xl-demo-production` or via its ingress http://production.front.xebialabs.demo/
+        description: Test http://xl-demo-production.xl-demo-uccm-app.xebialabs.demo/
         owner: admin
         failureHandler: |-
           releaseVariables['rollback'] = True
@@ -204,7 +204,7 @@ spec:
       color: '#FD8D10'
     - phase: Promote Canary to Production
       tasks:
-      - name: Set Canary Mode for production environment
+      - name: Set Canary Off Mode for production environment
         type: xld.UpdateCIProperty
         server: myXLDServer
         ciID: Environments/${directory}/production.conf
@@ -223,7 +223,7 @@ spec:
           owner: admin
         - name: Check the ${application} service in production
           type: xlrelease.Task
-          description: run `minikube service frontend -n xl-demo-production`  or  via its ingress http://production.front.xebialabs.demo/
+          description: Test http://xl-demo-production.xl-demo-uccm-app.xebialabs.demo
           owner: admin
       color: '#D94C3D'
     - phase: Rollback
