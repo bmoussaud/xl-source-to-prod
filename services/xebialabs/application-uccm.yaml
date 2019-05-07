@@ -35,7 +35,7 @@ spec:
           exposeAsService: True
           servicePort: "80"
           exposeAsIngress: True
-      - name: test application availability
+      - name: uccm test application availability
         type: smoketest.HttpRequestTest
         url: http://xl-demo-{{env}}.xl-demo-uccm-app.xebialabs.demo/
         expectedResponseText: Hello, world!
