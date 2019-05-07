@@ -57,7 +57,7 @@ spec:
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
         propertyValue: '{''is_canary'':''true'', ''env'':''production'',''replicas'':''1'',
-          ''canary_type'':''canary'',''BACKEND_ENDPOINT'':''backend'',''front.url'':''http://production.front.xebialabs.demo''}'
+          ''canary_type'':''canary'',''BACKEND_ENDPOINT'':''backend''}'
       - name: Deploy ${application} ${version} --> Production
         type: xldeploy.Deploy
         server: myXLDServer
@@ -82,7 +82,7 @@ spec:
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
         propertyValue: '{''is_canary'':''false'', ''env'':''production'',''replicas'':''5'',
-          ''canary_type'':''primary'',''BACKEND_ENDPOINT'':''backend'',''front.url'':''http://production.front.xebialabs.demo''}'
+          ''canary_type'':''primary'',''BACKEND_ENDPOINT'':''backend''}'
       - name: Promote
         type: xlrelease.SequentialGroup
         precondition: releaseVariables['rollback'] == False
@@ -185,7 +185,7 @@ spec:
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
         propertyValue: '{''is_canary'':''true'', ''env'':''production'',''replicas'':''1'',
-          ''canary_type'':''canary'',''BACKEND_ENDPOINT'':''backend'',''front.url'':''http://production.front.xebialabs.demo''}'
+          ''canary_type'':''canary'',''BACKEND_ENDPOINT'':''backend''}'
       - name: Deploy ${application} ${version} --> Production
         type: xldeploy.Deploy
         server: myXLDServer
@@ -210,7 +210,7 @@ spec:
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
         propertyValue: '{''is_canary'':''false'', ''env'':''production'',''replicas'':''5'',
-          ''canary_type'':''primary'',''BACKEND_ENDPOINT'':''backend'',''front.url'':''http://production.front.xebialabs.demo''}'
+          ''canary_type'':''primary'',''BACKEND_ENDPOINT'':''backend''}'
       - name: Promote
         type: xlrelease.SequentialGroup
         precondition: releaseVariables['rollback'] == False
