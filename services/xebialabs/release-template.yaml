@@ -1,0 +1,144 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: source-2-prod
+  children:
+  - name: myXLDServer
+    type: xldeploy.Server
+    url: http://localhost:4525
+    username: admin
+    password: admin
+  - name: myJenkins
+    type: jenkins.Server
+    url: http://localhost:8080
+  - template: Source-To-Prod
+    scheduledStartDate: 2019-04-12T09:00:00+02:00
+    phases:
+    - phase: Deploy to Staging
+      tasks:
+      - name: Build a new version ${build_number}
+        type: jenkins.Build
+        jenkinsServer: myJenkins
+        username: bmoussaud
+        jobName: demo-app
+        owner: admin
+        variableMapping:
+          pythonScript.buildNumber: ${build_number}
+      - name: Fetch the current version
+        type: xld.GetLatestVersion
+        server: myXLDServer
+        applicationId: Applications/${application}
+        owner: admin
+        variableMapping:
+          pythonScript.packageId: ${version}
+      - name: Deploy xl-demo app ${version} --> Staging
+        type: xldeploy.Deploy
+        server: myXLDServer
+        deploymentPackage: ${version}
+        deploymentEnvironment: Environments/xl-demo/xl-demo-staging
+        owner: admin
+      - name: Check the ${application} service in staging
+        type: xlrelease.Task
+        description: run `minikube service frontend -n xl-demo-staging` or via its ingress http://staging.front.xebialabs.demo/
+        owner: admin
+      color: '#0099CC'
+    - phase: Deploy Canary to Production
+      tasks:
+      - name: Read Deployed Version in Production
+        type: xld.GetLastVersionDeployed
+        server: myXLDServer
+        environmentId: Environments/${directory}/xl-demo-production
+        applicationName: ${application}
+        variableMapping:
+          pythonScript.applicationId: ${version.in.production}
+      - name: Set Canary Mode for production environment
+        type: xld.UpdateCIProperty
+        server: myXLDServer
+        ciID: Environments/${directory}/production.conf
+        ciProperty: entries
+        propertyValue: '{''is_canary'':''true'', ''env'':''production'',''replicas'':''1'',
+          ''canary_type'':''canary'',''BACKEND_ENDPOINT'':''backend'',''front.url'':''http://production.front.xebialabs.demo''}'
+      - name: Deploy ${application} ${version} --> Production
+        type: xldeploy.Deploy
+        server: myXLDServer
+        deploymentPackage: ${version}
+        deploymentEnvironment: Environments/${directory}/xl-demo-production
+        owner: admin
+      - name: Check the canary ${application} service in production
+        type: xlrelease.Task
+        description: run `minikube service frontend -n xl-demo-production` or via its ingress http://production.front.xebialabs.demo/
+        owner: admin
+        failureHandler: |-
+          releaseVariables['rollback'] = True
+          #taskApi.skipTask(getCurrentTask().getId(), "Skipped task from failure handler.")
+        taskFailureHandlerEnabled: true
+        taskRecoverOp: RUN_SCRIPT
+      color: '#FD8D10'
+    - phase: Promote Canary to Production
+      tasks:
+      - name: Set Canary Mode for production environment
+        type: xld.UpdateCIProperty
+        server: myXLDServer
+        ciID: Environments/${directory}/production.conf
+        ciProperty: entries
+        propertyValue: '{''is_canary'':''false'', ''env'':''production'',''replicas'':''5'',
+          ''canary_type'':''primary'',''BACKEND_ENDPOINT'':''backend'',''front.url'':''http://production.front.xebialabs.demo''}'
+      - name: Promote
+        type: xlrelease.SequentialGroup
+        precondition: releaseVariables['rollback'] == False
+        tasks:
+        - name: Deploy ${application} ${version} --> Production
+          type: xldeploy.Deploy
+          server: myXLDServer
+          deploymentPackage: ${version}
+          deploymentEnvironment: Environments/${directory}/xl-demo-production
+          owner: admin
+        - name: Check the ${application} service in production
+          type: xlrelease.Task
+          description: run `minikube service frontend -n xl-demo-production`  or  via its ingress http://production.front.xebialabs.demo/
+          owner: admin
+      color: '#D94C3D'
+    - phase: Rollback
+      tasks:
+      - name: Only if rollack == ${rollback}
+        type: xlrelease.SequentialGroup
+        precondition: releaseVariables['rollback']
+        tasks:
+        - name: Rollback ${version.in.production} --> Production
+          type: xldeploy.Deploy
+          server: myXLDServer
+          deploymentPackage: ${version.in.production}
+          deploymentEnvironment: Environments/${directory}/xl-demo-production
+          owner: admin
+      color: '#0099CC'
+    tags:
+    - source-2-prod
+    variables:
+    - type: xlrelease.StringVariable
+      key: build_number
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: version
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.BooleanVariable
+      key: rollback
+      requiresValue: false
+      showOnReleaseStart: false
+      label: Rollback
+    - type: xlrelease.StringVariable
+      key: version.in.production
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: directory
+      value: xl-demo
+    - type: xlrelease.StringVariable
+      key: application
+      value: xl-demo-app
+    scriptUsername: admin
+    scriptUserPassword: admin
+    riskProfile: Default risk profile
+
