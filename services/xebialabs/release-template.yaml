@@ -20,7 +20,6 @@ spec:
       - name: Build a new version ${build_number}
         type: jenkins.Build
         jenkinsServer: myJenkins
-        username: bmoussaud
         jobName: demo-app
         owner: admin
         variableMapping:
