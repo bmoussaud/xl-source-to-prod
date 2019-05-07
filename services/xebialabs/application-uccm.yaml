@@ -6,7 +6,7 @@ spec:
     children:
     - name: !value appversion
       type: udm.DeploymentPackage
-      ochestrator:
+      orchestrator:
       - sequential-by-deployed
       deployables:
       - name: back
