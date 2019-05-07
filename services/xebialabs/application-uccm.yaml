@@ -25,7 +25,7 @@ spec:
         image: !format localhost:5000/xl-demo-frontend:%appversion%
         env:
           BACKEND_ENDPOINT: http://back-web-service
-          FEATURE: UCCM <b>{{env}}</b>-xl-demo-frontend:%appversion%
+          FEATURE: !format UCCM <b>{{env}}</b>-xl-demo-frontend:%appversion%
         ports:
         - name: web
           type: uccm.ContainerPortSpec
