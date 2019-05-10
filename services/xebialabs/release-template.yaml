@@ -140,3 +140,43 @@ spec:
     scriptUsername: admin
     scriptUserPassword: admin
     riskProfile: Default risk profile
+  - template: clean
+    scheduledStartDate: 2019-04-12T09:00:00+02:00
+    dueDate: 2019-05-07T13:24:08.699+02:00
+    phases:
+    - phase: Undeploy
+      tasks:
+      - name: Run
+        type: xlrelease.ParallelGroup
+        precondition: releaseVariables['undeploy']
+        tasks:
+        - name: xl-demo-uccm-app
+          type: xldeploy.Undeploy
+          server: myXLDServer
+          deployedApplication: Environments/xl-demo/xl-demo-production/xl-demo-uccm-app
+          owner: admin
+        - name: xl-demo-app
+          type: xldeploy.Undeploy
+          server: myXLDServer
+          deployedApplication: Environments/xl-demo/xl-demo-staging/xl-demo-app
+          owner: admin
+        - name: xl-demo-uccm-app
+          type: xldeploy.Undeploy
+          server: myXLDServer
+          deployedApplication: Environments/xl-demo/xl-demo-staging/xl-demo-uccm-app
+          owner: admin
+        - name: xl-demo-app
+          type: xldeploy.Undeploy
+          server: myXLDServer
+          deployedApplication: Environments/xl-demo/xl-demo-production/xl-demo-app
+          owner: admin
+      color: '#0099CC'
+    tags:
+    - source-2-prod
+    variables:
+    - type: xlrelease.BooleanVariable
+      key: undeploy
+      value: true
+    scriptUsername: admin
+    scriptUserPassword: admin
+    riskProfile: Default risk profile

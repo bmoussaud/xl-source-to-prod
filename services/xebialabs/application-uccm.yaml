@@ -24,7 +24,7 @@ spec:
         type: uccm.ContainerSpec
         image: !format localhost:5000/xl-demo-frontend:%appversion%
         profile: production
-        replicas: 1
+        replicas: ${replicas}
         env:
           BACKEND_ENDPOINT: http://back-web-service
           FEATURE: !format UCCM <b>{{env}}</b>-xl-demo-frontend:%appversion%
