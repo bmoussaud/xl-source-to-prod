@@ -1,7 +1,7 @@
 apiVersion: xl-release/v1
 kind: Release
 spec:
-  name: source-2-prod/clean-run
-  template: source-2-prod/clean
+  name: source-2-prod/source-2-prod-run
+  template: source-2-prod/source-2-prod
   variables:
-    undeploy: true
+    application: xl-demo-uccm-app
