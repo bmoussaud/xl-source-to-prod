@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: frontend-config
 data:
-  BACKEND_ENDPOINT: 'http://{{BACKEND_ENDPOINT}}'
+  BACKEND_ENDPOINT: 'http://backend'
   FEATURE: <b>{{env}}</b>-xl-demo-frontend:latest
 ---
 apiVersion: extensions/v1beta1
@@ -33,10 +33,10 @@ spec:
         image: xl-demo-frontend:latest
         ports:
         - containerPort: 8000
-        #readinessProbe:
-        #  httpGet:
-        #    path: /
-        #    port: 8000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
         envFrom:
         - configMapRef:
             name: frontend-config

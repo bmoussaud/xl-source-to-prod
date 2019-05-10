@@ -7,13 +7,15 @@ spec:
     type: udm.Dictionary
     entries:
       env: staging
-      is_canary: false
       replicas: 1
+      is_canary: false
       canary_type: primary
+      uccm.Container.canary: false
   - name: production.conf
     type: udm.Dictionary
     entries:
       env: production
-      is_canary: false
       replicas: 3
+      is_canary: false
       canary_type: primary
+      uccm.Container.canary: false
