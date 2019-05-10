@@ -1,0 +1,19 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+metadata:
+  Environments-home: Environments/xl-demo
+spec:
+  - name: staging.conf
+    type: udm.Dictionary
+    entries:
+      env: staging
+      is_canary: false
+      replicas: 1
+      canary_type: primary
+  - name: production.conf
+    type: udm.Dictionary
+    entries:
+      env: production
+      is_canary: false
+      replicas: 3
+      canary_type: primary
