@@ -3,6 +3,7 @@ kind: Import
 metadata:
  imports:
    - xebialabs/infrastructure.yaml
+   - xebialabs/dictionaries.yaml
    - xebialabs/environment.yaml
    - xebialabs/application.yaml
    - xebialabs/application-uccm.yaml
