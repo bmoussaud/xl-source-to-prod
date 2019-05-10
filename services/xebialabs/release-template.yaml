@@ -31,7 +31,7 @@ spec:
         owner: admin
         variableMapping:
           pythonScript.packageId: ${version}
-      - name: Deploy xl-demo app ${version} --> Staging
+      - name: Deploy ${version} --> Staging
         type: xldeploy.Deploy
         server: myXLDServer
         deploymentPackage: ${version}
@@ -39,7 +39,7 @@ spec:
         owner: admin
       - name: Check the ${application} service in staging
         type: xlrelease.Task
-        description: Test http://staging.front.xebialabs.demo/
+        description: Test http://staging.front.xebialabs.demo/ or http://xl-demo-staging.xl-demo-uccm-app.xebialabs.demo/
         owner: admin
       color: '#0099CC'
     - phase: Deploy Canary to Production
@@ -58,7 +58,7 @@ spec:
         ciProperty: entries
         propertyValue: '{''is_canary'':''true'', ''env'':''production'',''replicas'':''1'',
           ''canary_type'':''canary'',''uccm.Container.canary'':''true''}'
-      - name: Deploy ${application} ${version} --> Production
+      - name: Deploy ${version} --> Production
         type: xldeploy.Deploy
         server: myXLDServer
         deploymentPackage: ${version}
@@ -66,7 +66,7 @@ spec:
         owner: admin
       - name: Check the canary ${application} service in production
         type: xlrelease.Task
-        description: Test http://production.front.xebialabs.demo/
+        description: Test http://production.front.xebialabs.demo/ or http://xl-demo-production.xl-demo-uccm-app.xebialabs.demo/
         owner: admin
         failureHandler: |-
           releaseVariables['rollback'] = True
@@ -87,7 +87,7 @@ spec:
         type: xlrelease.SequentialGroup
         precondition: releaseVariables['rollback'] == False
         tasks:
-        - name: Deploy ${application} ${version} --> Production
+        - name: Deploy ${version} --> Production
           type: xldeploy.Deploy
           server: myXLDServer
           deploymentPackage: ${version}
@@ -95,7 +95,7 @@ spec:
           owner: admin
         - name: Check the ${application} service in production
           type: xlrelease.Task
-          description: Test
+          description: Test http://production.front.xebialabs.demo/ or http://xl-demo-production.xl-demo-uccm-app.xebialabs.demo/
           owner: admin
       color: '#D94C3D'
     - phase: Rollback
