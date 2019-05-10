@@ -2,6 +2,6 @@ apiVersion: xl-release/v1
 kind: Release
 spec:
   name: source-2-prod/source-2-prod-run
-  template: source-2-prod/source-2-prod
+  template: source-2-prod/Source-To-Prod
   variables:
     application: xl-demo-uccm-app

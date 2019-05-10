@@ -47,6 +47,7 @@ spec:
       - name: Read Deployed Version in Production
         type: xld.GetLastVersionDeployed
         server: myXLDServer
+        owner: admin
         environmentId: Environments/${directory}/xl-demo-production
         applicationName: ${application}
         variableMapping:
@@ -54,6 +55,7 @@ spec:
       - name: Set Canary Mode for production environment
         type: xld.UpdateCIProperty
         server: myXLDServer
+        owner: admin
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
         propertyValue: '{''is_canary'':''true'', ''env'':''production'',''replicas'':''1'',
@@ -79,6 +81,7 @@ spec:
       - name: Set Canary Mode Off for production environment
         type: xld.UpdateCIProperty
         server: myXLDServer
+        owner: admin
         ciID: Environments/${directory}/production.conf
         ciProperty: entries
         propertyValue: '{''is_canary'':''false'', ''env'':''production'',''replicas'':''3'',
@@ -107,6 +110,7 @@ spec:
         - name: Rollback ${version.in.production} --> Production
           type: xldeploy.Deploy
           server: myXLDServer
+          owner: admin
           deploymentPackage: ${version.in.production}
           deploymentEnvironment: Environments/${directory}/xl-demo-production
           owner: admin
