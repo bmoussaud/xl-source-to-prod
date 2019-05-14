@@ -1,24 +1,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: 'backend-{{ canary_type }}'
+  name: 'backend-primary'
   labels:
     stack: backend
     tier: '{{env}}'
-    canary: '{{is_canary}}'
 spec:
   replicas: 1
   selector:
     matchLabels:
       stack: backend
       tier: '{{env}}'
-      canary: '{{is_canary}}'
   template:
     metadata:
       labels:
         stack: backend
         tier: '{{env}}'
-        canary: '{{is_canary}}'
     spec:
       containers:
       - name: primary
