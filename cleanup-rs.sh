@@ -5,4 +5,6 @@ kubectl delete rs -l tier=staging  -n xl-demo-staging
 kubectl delete rs -l tier=production  -n xl-demo-production
 kubectl delete rs -l application=xl-demo-uccm-app  -n xl-demo-production
 kubectl delete rs -l application=xl-demo-uccm-app  -n xl-demo-staging
+kubectl delete deployment -l application=xl-demo-uccm-app  -n xl-demo-staging
+kubectl delete deployment -l application=xl-demo-uccm-app  -n xl-demo-production
 
