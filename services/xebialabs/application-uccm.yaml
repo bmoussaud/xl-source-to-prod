@@ -28,6 +28,7 @@ spec:
         env:
           BACKEND_ENDPOINT: http://back-web-service
           FEATURE: !format UCCM <b>{{env}}</b>-xl-demo-frontend:%appversion%
+        progressiveValidation: True
         ports:
         - name: web
           type: uccm.ContainerPortSpec

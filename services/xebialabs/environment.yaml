@@ -10,6 +10,7 @@ spec:
     - ~Infrastructure/xl-demo/localhost/test-runner-staging
     dictionaries:
     - ./staging.conf
+    smtpServer: Configuration/defaultMailServer
   - name: xl-demo-production
     type: udm.Environment
     members:
@@ -17,5 +18,6 @@ spec:
     - ~Infrastructure/xl-demo/localhost/test-runner-production
     dictionaries:
     - ./production.conf
+    smtpServer: Configuration/defaultMailServer
 
 

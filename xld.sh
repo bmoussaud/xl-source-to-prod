@@ -13,4 +13,4 @@ spec:
 cat /tmp/deploy.yaml
 ./xlw preview --xl-deploy-url http://localhost:4525 -f /tmp/deploy.yaml
 
-./xlw apply --xl-deploy-url http://localhost:4525 -f /tmp/deploy.yaml
+#./xlw apply --xl-deploy-url http://localhost:4525 -f /tmp/deploy.yaml
