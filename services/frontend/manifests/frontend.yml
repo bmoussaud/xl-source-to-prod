@@ -6,7 +6,7 @@ data:
   BACKEND_ENDPOINT: 'http://backend'
   FEATURE: <b>{{env}}</b>-xl-demo-frontend:latest
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: 'frontend-{{ canary_type }}'
