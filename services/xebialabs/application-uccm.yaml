@@ -8,6 +8,7 @@ spec:
       type: udm.DeploymentPackage
       orchestrator:
       - sequential-by-deployed
+      - k8s-progressive-group
       deployables:
       - name: back
         type: uccm.ContainerSpec
