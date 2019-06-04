@@ -36,6 +36,12 @@ spec:
           exposeAsService: True
           servicePort: "80"
           exposeAsIngress: True
+        - name: config
+          type: uccm.MountedFileSpec
+          path: /opt/config/data
+          isSensitive: False
+          file: !file "services/frontend/config.properties"
+
       - name: uccm test application availability
         type: smoketest.HttpRequestTest
         url: http://xl-demo-{{env}}.xl-demo-uccm-app.xebialabs.demo/

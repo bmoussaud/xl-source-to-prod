@@ -32,11 +32,17 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	host, err := os.Hostname()
-    if err != nil {
-        http.Error(w, fmt.Sprintf("Error retrieving hostname: %v", err), 500)
-        return
-    }
-    msg2 := fmt.Sprintf("%s", host)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error retrieving hostname: %v", err), 500)
+		return
+	}
+	msg2 := fmt.Sprintf("%s", host)
+
+	b, err := ioutil.ReadFile("/opt/config/data/config.properties")
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error reading configuration file hostname: %v", err), 500)
+	}
+	configuration := string(b)
 
 	t, terr := template.ParseFiles("/content/index.html")
 
@@ -46,9 +52,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	config := map[string]string{
-		"Message": string(body),
-		"Feature": os.Getenv("FEATURE"),
+		"Message":      string(body),
+		"Feature":      os.Getenv("FEATURE"),
 		"FrontendHost": string(msg2),
+		"Config":       Configuration,
 	}
 
 	t.Execute(w, config)
