@@ -36,6 +36,7 @@ spec:
           exposeAsService: True
           servicePort: "80"
           exposeAsIngress: True
+        mountedFiles:
         - name: config
           type: uccm.MountedFileSpec
           path: /opt/config/data
