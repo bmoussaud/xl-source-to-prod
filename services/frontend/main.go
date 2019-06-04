@@ -55,7 +55,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		"Message":      string(body),
 		"Feature":      os.Getenv("FEATURE"),
 		"FrontendHost": string(msg2),
-		"Config":       Configuration,
+		"Config":       configuration,
 	}
 
 	t.Execute(w, config)
