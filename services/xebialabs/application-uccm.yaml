@@ -40,7 +40,7 @@ spec:
           type: uccm.MountedFileSpec
           path: /opt/config/data
           isSensitive: False
-          file: !file "services/frontend/config.properties"
+          file: !file "../frontend/config.properties"
 
       - name: uccm test application availability
         type: smoketest.HttpRequestTest
