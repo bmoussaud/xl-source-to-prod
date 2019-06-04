@@ -8,6 +8,7 @@ spec:
     entries:
       env: staging
       replicas: 1
+      alternate.color: no-color
       is_canary: false
       canary_type: primary
       uccm.Container.canary: false
@@ -19,3 +20,5 @@ spec:
       is_canary: false
       canary_type: primary
       uccm.Container.canary: false
+      alternate.color: no-color
+
