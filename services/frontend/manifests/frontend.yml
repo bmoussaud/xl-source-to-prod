@@ -9,24 +9,21 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 'frontend-{{ canary_type }}'
+  name: 'frontend-deployment'
   labels:
     stack: frontend
     tier: '{{env}}'
-    canary: '{{is_canary}}'
 spec:
   replicas: {{replicas}}
   selector:
     matchLabels:
       stack: frontend
       tier: '{{env}}'
-      canary: '{{is_canary}}'
   template:
     metadata:
       labels:
         stack: frontend
         tier: '{{env}}'
-        canary: '{{is_canary}}'
     spec:
       containers:
       - name: primary
