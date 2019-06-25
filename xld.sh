@@ -8,6 +8,8 @@ spec:
   package: ${package}
   environment: ${environment}
   onSuccessPolicy: ARCHIVE
+  orchestrators:
+    - sequential-by-deployed
 " > /tmp/deploy.yaml
 
 cat /tmp/deploy.yaml
