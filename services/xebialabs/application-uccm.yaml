@@ -8,7 +8,6 @@ spec:
       type: udm.DeploymentPackage
       orchestrator:
       - sequential-by-deployed
-      - k8s-progressive-group
       deployables:
       - name: back
         type: uccm.ContainerSpec
@@ -42,7 +41,6 @@ spec:
           path: /opt/config/data
           isSensitive: False
           file: !file "../frontend/config.properties"
-
       - name: uccm test application availability
         type: smoketest.HttpRequestTest
         url: http://xl-demo-{{env}}.xl-demo-uccm-app.xebialabs.demo/

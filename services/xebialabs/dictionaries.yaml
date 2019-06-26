@@ -8,11 +8,12 @@ spec:
     entries:
       env: staging
       replicas: 1
+      alternate.color: empty-staging
   - name: production.conf
     type: udm.Dictionary
     entries:
       env: production
       replicas: 3
-      is_canary: false
+      alternate.color: empty-prod
 
 
