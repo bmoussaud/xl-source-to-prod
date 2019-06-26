@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  BACKEND_ENDPOINT: 'http://backend'
+  FEATURE: <b>{{env}}</b>-xl-demo-frontend:latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'frontend-deployment'
+  labels:
+    stack: frontend
+    tier: '{{env}}'
+spec:
+  replicas: {{replicas}}
+  selector:
+    matchLabels:
+      stack: frontend
+      tier: '{{env}}'
+  template:
+    metadata:
+      labels:
+        stack: frontend
+        tier: '{{env}}'
+    spec:
+      containers:
+      - name: primary
+        image: bmoussaud/xl-demo-frontend:1.0.67
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: frontend-config
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+spec:
+  selector:
+    stack: frontend
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000

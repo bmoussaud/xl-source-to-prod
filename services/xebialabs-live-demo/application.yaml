@@ -1,0 +1,27 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+  - name: live-demo
+    type: core.Directory
+    children:
+    - name: xl-live-app
+      type: udm.Application
+      children:
+      - name: !value appversion
+        type: udm.DeploymentPackage
+        deployables:
+        - name: frontend.yaml
+          type: k8s.ResourcesFile
+          file: !file k8s/frontend.yml
+        - name: backend.yaml
+          type: k8s.ResourcesFile
+          file: !file k8s//backend.yml
+        - name: ingress.yaml
+          type: k8s.ResourcesFile
+          file: !file k8s/ingress.json
+        - name: test application availability
+          type: smoketest.HttpRequestTest
+          url: 'http://{{env}}.front.xebialabs.demo/'
+          expectedResponseText: Hello, world!
+
+

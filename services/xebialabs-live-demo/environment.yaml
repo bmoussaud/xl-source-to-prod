@@ -1,0 +1,15 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+metadata:
+  Environments-home: Environments/live-demo
+spec:
+  - name: demo-dev
+    type: udm.Environment
+    members:
+    - ~Infrastructure/live-demo/xl-demo-kube/xl-dev
+    - ~Infrastructure/live-demo/localhost/test-runner-staging
+    dictionaries:
+    - ./dev.conf
+    smtpServer: Configuration/defaultMailServer
+
+

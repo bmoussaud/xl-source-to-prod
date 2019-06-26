@@ -1,0 +1,12 @@
+./xlw --xl-deploy-url http://localhost:4525 apply -f services/xebialabs-live-demo/infrastructure.yaml
+
+./xlw --xl-deploy-url http://localhost:4525 apply -f services/xebialabs-live-demo/dictionaries.yaml
+
+./xlw --xl-deploy-url http://localhost:4525 apply -f services/xebialabs-live-demo/environment.yaml
+
+./xlw --xl-deploy-url http://localhost:4525 apply  -f services/xebialabs-live-demo/application.yaml --values appversion=1.0.72
+
+./xld.sh Applications/live-demo/xl-live-app/1.0.72 Environments/live-demo/demo-dev
+
+
+

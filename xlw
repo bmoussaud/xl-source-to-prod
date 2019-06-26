@@ -49,4 +49,4 @@ if [ ! -f "${XL_BIN}" ] ; then
 fi
 
 # now run xl cli
-exec "${XL_BIN}" "$@"
+exec "${XL_BIN}"  "$@"
