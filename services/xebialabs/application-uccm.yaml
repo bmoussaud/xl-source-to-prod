@@ -37,7 +37,6 @@ spec:
         - name: config
           type: uccm.MountedFileSpec
           path: /opt/config/data
-          isSensitive: False
           file: !file "../frontend/config.properties"
         - name: sensitive-config
           type: uccm.MountedFileSpec

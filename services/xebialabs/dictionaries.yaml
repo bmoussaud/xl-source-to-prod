@@ -15,5 +15,10 @@ spec:
       env: production
       replicas: 3
       alternate.color: green-prod
+  - name: canary.conf
+    type: udm.Dictionary
+    entries:
+      uccm.Container.progressive: True
+      uccm.Container.progressiveValidation: True
 
 

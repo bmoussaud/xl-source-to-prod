@@ -18,6 +18,7 @@ spec:
     - ~Infrastructure/xl-demo/localhost/test-runner-production
     dictionaries:
     - ./production.conf
+    - ./canary.conf
     smtpServer: Configuration/defaultMailServer
 
 
