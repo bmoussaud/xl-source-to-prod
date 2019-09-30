@@ -8,12 +8,12 @@ spec:
     entries:
       env: staging
       replicas: 1
-      alternate.color: empty-staging
+      alternate.color: green-staging
   - name: production.conf
     type: udm.Dictionary
     entries:
       env: production
       replicas: 3
-      alternate.color: empty-prod
+      alternate.color: green-prod
 
 
