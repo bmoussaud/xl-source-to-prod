@@ -33,17 +33,17 @@ spec:
           containerPort: "8000"
           servicePort: "80"
           exposeAsIngress: True
-          mountedFiles:
-          - name: config
-            type: uccm.MountedFileSpec
-            path: /opt/config/data
-            isSensitive: False
-            file: !file "../frontend/config.properties"
-          - name: config
-            type: uccm.MountedFileSpec
-            path: /opt/config/data_secured
-            isSensitive: True
-            file: !file "../frontend/secured-config.properties"
+        mountedFiles:
+        - name: config
+          type: uccm.MountedFileSpec
+          path: /opt/config/data
+          isSensitive: False
+          file: !file "../frontend/config.properties"
+        - name: sensitive-config
+          type: uccm.MountedFileSpec
+          path: /opt/config/data_secured
+          isSensitive: True
+          file: !file "../frontend/secured-config.properties"
       - name: uccm test application availability
         type: smoketest.HttpRequestTest
         url: http://xl-demo-{{env}}.xl-demo-uccm-app.xebialabs.demo/
