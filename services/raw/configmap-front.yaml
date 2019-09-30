@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  config.properties: ALTERNATE_COLOR=XXXXX
+kind: ConfigMap
+metadata:
+  name: front-config-d-89083250-f-3d7f4bbbc0-configmap
+  namespace: xl-demo-staging
