@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'backend-primary'
+  labels:
+    stack: backend
+    tier: '{{env}}'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      stack: backend
+      tier: '{{env}}'
+  template:
+    metadata:
+      labels:
+        stack: backend
+        tier: '{{env}}'
+    spec:
+      containers:
+      - name: primary
+        image: localhost:5000/xl-demo-backend:1.0.72
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend
+spec:
+  selector:
+    stack: backend
+    tier: '{{env}}'
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000

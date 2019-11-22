@@ -1,9 +1,9 @@
 ---
 apiVersion: xl-release/v1
 kind: Templates
-  spec:
-  - directory: source-2-prod
-    children:
+spec:
+- directory: source-2-prod
+  children:
   - name: myXLDServer
     type: xldeploy.Server
     url: http://localhost:4525

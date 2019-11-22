@@ -1,0 +1,43 @@
+pipeline {
+    environment {
+        imageTagFront = "localhost:5000/xl-demo-frontend:1.0.$BUILD_NUMBER"
+        imageTagBack = "localhost:5000/xl-demo-backend:1.0.$BUILD_NUMBER"
+        dockerCredentials = 'minikube'
+        dockerImageFront = ''
+        dockerImageBack = ''
+    }
+    agent any
+    stages {
+        stage('Cloning Git') {
+            steps {
+                git 'https://github.com/bmoussaud/xl-source-to-prod.git'
+            }
+        }
+        stage('Building image') {
+            steps {
+                script {
+                    docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
+                        dockerImageBack = docker.build(imageTagBack, "services/backend")
+                    }
+                }
+            }
+        }
+        stage('Push Images to Registry') {
+            steps {
+                script {
+                    docker.withServer('tcp://192.168.130.134:2376', dockerCredentials) {
+                        dockerImageFront.push()
+                        dockerImageBack.push()
+                    }
+                }
+            }
+        }
+
+        stage("Apply xebialabs.yaml") {
+            steps {
+                sh "./xlw apply --xl-deploy-url http://localhost:4525 -v -f services/xebialabs.yaml --values appversion=1.0.$BUILD_NUMBER"
+            }
+        }
+
+    }
+}

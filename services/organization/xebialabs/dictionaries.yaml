@@ -1,0 +1,17 @@
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: Environments/live-demo
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+metadata:
+  Environments-home: Environments/live-demo
+spec:
+  - name: dev.conf
+    type: udm.Dictionary
+    entries:
+      env: dev
+      replicas: 1
+      alternate.color: empty-dev
+

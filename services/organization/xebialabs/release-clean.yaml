@@ -1,0 +1,7 @@
+apiVersion: xl-release/v1
+kind: Release
+spec:
+  name: source-2-prod/clean-run
+  template: source-2-prod/clean
+  variables:
+    undeploy: true

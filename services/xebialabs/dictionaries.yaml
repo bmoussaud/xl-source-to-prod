@@ -9,12 +9,16 @@ spec:
       env: staging
       replicas: 1
       alternate.color: green-staging
+    encryptedEntries:
+      password: tiger
   - name: production.conf
     type: udm.Dictionary
     entries:
       env: production
       replicas: 3
       alternate.color: green-prod
+    encryptedEntries:
+      password: tiger
   - name: canary.conf
     type: udm.Dictionary
     entries:

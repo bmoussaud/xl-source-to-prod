@@ -1,0 +1,8 @@
+apiVersion: xl-release/v1
+kind: Release
+spec:
+  name: source-2-prod/xl-demo-uccm-app-canary
+  template: source-2-prod/validate-canary
+  variables:
+    application: xl-demo-uccm-app
+    stage: xl-demo-production

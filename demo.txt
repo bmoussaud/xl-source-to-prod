@@ -1,0 +1,13 @@
+kubectl delete ns xl-demo-production && kubectl create ns xl-demo-production
+    kubectl delete ns xl-demo-staging && kubectl create ns xl-demo-staging
+
+79 -> Generate the deployment + service + ingress
+80 -> Manage the configurations + sensitive data
+81 -> update the image
+Deploy 81 > Prod command line
+
+./xld.sh Applications/xl-demo-uccm-app/1.0.81  Environments/xl-demo/xl-demo-production
+
+
+Monitoring
+Update with canary
